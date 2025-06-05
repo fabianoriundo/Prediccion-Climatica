@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Características - CampoSol</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="caracteristicas.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <!-- ENCABEZADO -->
+    <header>
+        <div class="nav-container">
+            <h1><i class="fas fa-leaf"></i> CampoSol</h1>
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="index.html">Inicio</a></li>
+                    <li><a href="nosotros.html">Nosotros</a></li>
+                    <li><a href="caracteristicas.html" class="active">Monitoreo</a></li>
+                    <li><a href="analisis.html">Análisis</a></li>
+                    <li><a href="contacto.html">Contacto</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <div class="main-container">
+        <!-- CONTENIDO PRINCIPAL -->
+        <main class="main-content">
+            <!-- SECCIÓN DE PREDICCIONES CLIMÁTICAS -->
+            <section class="weather-predictions">
+                <h2><i class="fas fa-cloud-sun"></i> Predicciones Climáticas en Tiempo Real</h2>
+                <div class="weather-grid">
+                    <div class="weather-card current">
+                        <h3>Clima Actual</h3>
+                        <div class="weather-info">
+                            <i class="fas fa-temperature-high"></i>
+                            <div>
+                                <span class="temp">24°C</span>
+                                <span class="humidity">Humedad: 65%</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="weather-card forecast">
+                        <h3>Próximas 24 horas</h3>
+                        <canvas id="hourlyForecast"></canvas>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECCIÓN DE ANÁLISIS DE CULTIVOS -->
+            <section class="crop-analysis">
+                <h2><i class="fas fa-seedling"></i> Análisis Detallado de Cultivos</h2>
+                <div class="crop-grid">
+                    <div class="crop-card">
+                        <h3><i class="fas fa-wheat-awn"></i> Maíz</h3>
+                        <div class="crop-stats">
+                            <p><i class="fas fa-check-circle"></i> Estado: Óptimo</p>
+                            <p><i class="fas fa-tint"></i> Humedad del suelo: 35%</p>
+                            <p><i class="fas fa-clock"></i> Próxima irrigación: 2 días</p>
+                        </div>
+                    </div>
+                    <div class="crop-card">
+                        <h3><i class="fas fa-wheat-awn"></i> Trigo</h3>
+                        <div class="crop-stats">
+                            <p><i class="fas fa-exclamation-circle"></i> Estado: Necesita atención</p>
+                            <p><i class="fas fa-tint"></i> Humedad del suelo: 20%</p>
+                            <p><i class="fas fa-clock"></i> Próxima irrigación: Hoy</p>
+                        </div>
+                    </div>
+                    <div class="crop-card">
+                        <h3><i class="fas fa-seedling"></i> Soja</h3>
+                        <div class="crop-stats">
+                            <p><i class="fas fa-check-circle"></i> Estado: Bueno</p>
+                            <p><i class="fas fa-tint"></i> Humedad del suelo: 40%</p>
+                            <p><i class="fas fa-clock"></i> Próxima irrigación: 3 días</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECCIÓN DE ESTADÍSTICAS DE IMPACTO -->
+            <section class="impact-stats">
+                <h2><i class="fas fa-chart-bar"></i> Estadísticas de Impacto</h2>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <h3><i class="fas fa-tint"></i> Ahorro de Agua</h3>
+                        <canvas id="waterSavingsChart"></canvas>
+                    </div>
+                    <div class="stat-card">
+                        <h3><i class="fas fa-chart-line"></i> Rendimiento de Cultivos</h3>
+                        <canvas id="yieldChart"></canvas>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- BARRA LATERAL DE ACTUALIZACIONES -->
+        <aside class="updates-sidebar">
+            <h2><i class="fas fa-bell"></i> Actualizaciones</h2>
+            <div class="updates-container">
+                <div class="update-item alert">
+                    <h3><i class="fas fa-exclamation-triangle"></i> Alerta de Helada</h3>
+                    <p>Posible helada en las próximas 48 horas. Tome precauciones.</p>
+                    <span class="time">Hace 1 hora</span>
+                </div>
+                <div class="update-item info">
+                    <h3><i class="fas fa-info-circle"></i> Nuevo Reporte</h3>
+                    <p>Reporte mensual de rendimiento disponible.</p>
+                    <span class="time">Hace 3 horas</span>
+                </div>
+                <div class="update-item success">
+                    <h3><i class="fas fa-check-circle"></i> Objetivo Cumplido</h3>
+                    <p>Reducción del 15% en el consumo de agua este mes.</p>
+                    <span class="time">Hace 1 día</span>
+                </div>
+            </div>
+        </aside>
+    </div>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 CampoSol. Desarrollado con <i class="fas fa-heart"></i> para la comunidad agrícola.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Configuración común para los gráficos
+            Chart.defaults.font.family = "'Inter', sans-serif";
+            Chart.defaults.color = '#4a5568';
+            Chart.defaults.plugins.tooltip.backgroundColor = 'rgba(255, 255, 255, 0.95)';
+            Chart.defaults.plugins.tooltip.titleColor = '#2d3748';
+            Chart.defaults.plugins.tooltip.bodyColor = '#4a5568';
+            Chart.defaults.plugins.tooltip.borderColor = 'rgba(0,0,0,0.1)';
+            Chart.defaults.plugins.tooltip.borderWidth = 1;
+
+            // Gráfico de pronóstico por hora
+            new Chart(document.getElementById('hourlyForecast').getContext('2d'), {
+                type: 'line',
+                data: {
+                    labels: ['6am', '9am', '12pm', '3pm', '6pm', '9pm'],
+                    datasets: [{
+                        label: 'Temperatura (°C)',
+                        data: [18, 22, 25, 26, 24, 20],
+                        borderColor: '#4299e1',
+                        backgroundColor: 'rgba(66, 153, 225, 0.1)',
+                        tension: 0.3,
+                        fill: true,
+                        borderWidth: 2,
+                        pointRadius: 4,
+                        pointBackgroundColor: '#fff'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: false,
+                            grid: {
+                                color: 'rgba(0,0,0,0.05)'
+                            }
+                        },
+                        x: {
+                            grid: {
+                                display: false
+                            }
+                        }
+                    }
+                }
+            });
+
+            // Gráfico de ahorro de agua
+            new Chart(document.getElementById('waterSavingsChart').getContext('2d'), {
+                type: 'bar',
+                data: {
+                    labels: ['Ene', 'Feb', 'Mar', 'Abr'],
+                    datasets: [{
+                        label: 'Ahorro de agua (%)',
+                        data: [10, 15, 12, 18],
+                        backgroundColor: '#38b2ac',
+                        borderRadius: 4,
+                        maxBarThickness: 40
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            grid: {
+                                color: 'rgba(0,0,0,0.05)'
+                            }
+                        },
+                        x: {
+                            grid: {
+                                display: false
+                            }
+                        }
+                    }
+                }
+            });
+
+            // Gráfico de rendimiento
+            new Chart(document.getElementById('yieldChart').getContext('2d'), {
+                type: 'line',
+                data: {
+                    labels: ['2020', '2021', '2022', '2023'],
+                    datasets: [{
+                        label: 'Rendimiento (ton/ha)',
+                        data: [8.5, 9.2, 9.8, 10.5],
+                        borderColor: '#ed8936',
+                        backgroundColor: 'rgba(237, 137, 54, 0.1)',
+                        tension: 0.3,
+                        fill: true,
+                        borderWidth: 2,
+                        pointRadius: 4,
+                        pointBackgroundColor: '#fff'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: false,
+                            grid: {
+                                color: 'rgba(0,0,0,0.05)'
+                            }
+                        },
+                        x: {
+                            grid: {
+                                display: false
+                            }
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html> 
